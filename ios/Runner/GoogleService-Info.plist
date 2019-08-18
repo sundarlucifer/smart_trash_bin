@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   GoogleService-Info.plist
+   Runner
+
+   Created by Sundar Saravanan on 18/08/19.
+   Copyright (c) 2019 The Chromium Authors. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+	<key>CLIENT_ID</key>
+        <string>765671885633-lqocbe92t8c8lksfscm1r1iq6gmsnkad.apps.googleusercontent.com</string>
+        <key>REVERSED_CLIENT_ID</key>
+        <string>com.googleusercontent.apps.765671885633-lqocbe92t8c8lksfscm1r1iq6gmsnkad</string>
+        <key>ANDROID_CLIENT_ID</key>
+        <string>765671885633-5g3oov9qmmpg0rigrvsukikqlj2trj12.apps.googleusercontent.com</string>
+        <key>API_KEY</key>
+        <string>AIzaSyBc2Bnq8n7Sr8QgDUymx7saKPv2-XfiU8o</string>
+        <key>GCM_SENDER_ID</key>
+        <string>765671885633</string>
+        <key>PLIST_VERSION</key>
+        <string>1</string>
+        <key>BUNDLE_ID</key>
+        <string>com.theolympian.smartTrashBin</string>
+        <key>PROJECT_ID</key>
+        <string>smart-bin-flutter</string>
+        <key>STORAGE_BUCKET</key>
+        <string>smart-bin-flutter.appspot.com</string>
+        <key>IS_ADS_ENABLED</key>
+        <false></false>
+        <key>IS_ANALYTICS_ENABLED</key>
+        <false></false>
+        <key>IS_APPINVITE_ENABLED</key>
+        <true></true>
+        <key>IS_GCM_ENABLED</key>
+        <true></true>
+        <key>IS_SIGNIN_ENABLED</key>
+        <true></true>
+        <key>GOOGLE_APP_ID</key>
+        <string>1:765671885633:ios:135381c7b8107244</string>
+        <key>DATABASE_URL</key>
+        <string>https://smart-bin-flutter.firebaseio.com</string>    
+    </dict>
+</plist>
