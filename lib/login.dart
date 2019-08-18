@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'bin_list.dart';
 import 'auth.dart';
 
-class LoginSignUpPage extends StatefulWidget {
+class LoginRoute extends StatefulWidget {
+  static String tag = 'login-page';
+
   @override
-  State<StatefulWidget> createState() => new _LoginSignUpPageState();
+  State<StatefulWidget> createState() => new _LoginRouteState();
 }
 
 enum FormMode { LOGIN, SIGNUP }
 
-class _LoginSignUpPageState extends State<LoginSignUpPage> {
+class _LoginRouteState extends State<LoginRoute> {
   final _formKey = new GlobalKey<FormState>();
 
   String _email;
@@ -45,7 +47,6 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   // Perform login or signup
   void _validateAndSubmit() async {
     //init
-    Exception e;
     if (_validateAndSave()) {
       setState(() {
         _errorMessage = "";
@@ -124,12 +125,13 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   Widget build(BuildContext context) {
     _isIos = Theme.of(context).platform == TargetPlatform.iOS;
     return new Scaffold(
-        body: Stack(
-      children: <Widget>[
-        _showBody(),
-        _showCircularProgress(),
-      ],
-    ));
+      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+      body: Stack(
+        children: <Widget>[
+          _showBody(),
+          _showCircularProgress(),
+        ],
+      ));
   }
 
   Widget _showCircularProgress() {
@@ -203,6 +205,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
         child: Text(
           'A Quick Start',
           style: TextStyle(
+            color: Colors.white,
             fontSize: 30.0,
           ),
         ),
@@ -221,7 +224,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           hintText: 'Email',
           icon: new Icon(
             Icons.mail,
-            color: Colors.grey,
+            color: Colors.white70,
           ),
           contentPadding: EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 10.0),
           border: OutlineInputBorder(
@@ -245,7 +248,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           hintText: 'Password',
           icon: new Icon(
             Icons.lock,
-            color: Colors.grey,
+            color: Colors.white70,
           ),
           contentPadding: EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 10.0),
           border: OutlineInputBorder(
@@ -262,10 +265,10 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     return new FlatButton(
       child: _formMode == FormMode.LOGIN
           ? new Text('Create an account',
-              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300))
+              style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300, color: Colors.white70))
           : new Text('Have an account? Sign in',
               style:
-                  new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+                  new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300, color: Colors.white70)),
       onPressed: _formMode == FormMode.LOGIN
           ? _changeFormToSignUp
           : _changeFormToLogin,

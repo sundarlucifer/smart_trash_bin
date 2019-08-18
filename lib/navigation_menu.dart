@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
+import 'login.dart';
 import 'bin_list.dart';
 import 'maps_page.dart';
 import 'auth.dart';

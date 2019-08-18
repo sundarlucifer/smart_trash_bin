@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'auth.dart';
-import 'login_page.dart';
 import 'bin_list.dart';
 import 'login.dart';
 
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
           return BinListRoute();
         }else{
           print('no user present, login to continue');
-          return LoginSignUpPage();
+          return LoginRoute();
         }
       },
     );
@@ -35,7 +34,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        primaryColor: Colors.blue,
+        primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
+        hintColor: Colors.white70,
+        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
       ),
       home: _route(),
       routes: routes,

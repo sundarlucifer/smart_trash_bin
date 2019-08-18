@@ -96,6 +96,9 @@ class AuthService {
     },merge: true);
   }
 
+  Stream<QuerySnapshot> getBins(){
+    return _db.collection('bins').snapshots();
+  }
 
   signOut(){
     _auth.signOut();
