@@ -30,18 +30,18 @@ class _MyDraweState extends State<MyDrawer> {
           ListTile(
             title: Text('Bins'),
             leading: Icon(Icons.keyboard_backspace),
-//            onTap: () {
+            onTap: () {
 //              Navigator.of(context).pop();
 //              Navigator.of(context).pushNamed(BinListRoute.tag);
-//            },
+            },
           ),
           ListTile(
             title: Text('Map'),
             leading: Icon(Icons.keyboard_backspace),
-//            onTap: () {
+            onTap: () {
 //              Navigator.of(context).pop();
 //              Navigator.of(context).pushNamed(MapsRoute.tag);
-//            },
+            },
           ),
           ListTile(
             title: Text('Profile'),

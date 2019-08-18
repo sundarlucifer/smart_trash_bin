@@ -44,32 +44,32 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   // Perform login or signup
   void _validateAndSubmit() async {
+    //init
+    Exception e;
     if (_validateAndSave()) {
       setState(() {
         _errorMessage = "";
         _isLoading = true;
       });
-      try {
-        if (_formMode == FormMode.LOGIN) {
-          authService.emailSignIn(_email, _pass);
-        } else {
-          authService.emailSignUp(_email, _pass);
-          authService.sendEmailVerification();
-          _showVerifyEmailSentDialog();
-        }
-        setState(() {
-          _isLoading = false;
+
+      if (_formMode == FormMode.LOGIN) {
+        authService.emailSignIn(_email, _pass).catchError((error, stackTrace){
+          setState(() {
+            print('Error : ${error.toString()}');
+            _errorMessage = error.toString().split('(').removeLast().split(',').first.replaceAll('_', ' ');
+          });
         });
-      } catch (e) {
-        print('Error: $e');
-        setState(() {
-          _isLoading = false;
-          if (_isIos) {
-            _errorMessage = e.details;
-          } else
-            _errorMessage = e.message;
-        });
+      } else {
+        authService.emailSignUp(_email, _pass);
+        authService.sendEmailVerification();
+        _showVerifyEmailSentDialog();
       }
+
+      setState(() {
+        _isLoading = false;
+      });
+
+
       _checkSignIn();
     }
   }
@@ -151,23 +151,13 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
           title: new Text("Verify your account"),
           content:
               new Text("Link to verify account has been sent to your email"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Dismiss"),
-              onPressed: () {
-                _changeFormToLogin();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
         );
       },
     );
   }
 
   Widget _showBody() {
-    return new Container(
-        padding: EdgeInsets.all(16.0),
+    return new Center(
         child: new Form(
           key: _formKey,
           child: Padding(
@@ -222,7 +212,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
   Widget _showEmailInput() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
