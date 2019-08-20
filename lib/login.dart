@@ -217,6 +217,7 @@ class _LoginRouteState extends State<LoginRoute> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
       child: new TextFormField(
+        style: TextStyle(color: Colors.white),
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
@@ -227,6 +228,9 @@ class _LoginRouteState extends State<LoginRoute> {
             color: Colors.white70,
           ),
           contentPadding: EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 10.0),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0),
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(32.0),
           ),
@@ -241,16 +245,21 @@ class _LoginRouteState extends State<LoginRoute> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
+        style: TextStyle(color: Colors.white),
         maxLines: 1,
         obscureText: true,
         autofocus: false,
         decoration: new InputDecoration(
+          fillColor: Colors.white,
           hintText: 'Password',
           icon: new Icon(
             Icons.lock,
             color: Colors.white70,
           ),
           contentPadding: EdgeInsets.fromLTRB(24.0, 10.0, 24.0, 10.0),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.0),
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(32.0),
           ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'auth.dart';
 import 'bin_list.dart';
 import 'login.dart';
+import 'bin_details.dart';
+import 'maps_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +11,8 @@ class MyApp extends StatelessWidget {
   final routes = <String,WidgetBuilder>{
     LoginRoute.tag: (context) => LoginRoute(),
     BinListRoute.tag: (context) => BinListRoute(),
-//    MapsRoute.tag: (context) => MapsRoute(),
+    MapsRoute.tag: (context) => MapsRoute(),
+    BinDetailsRoute.tag: (context) => BinDetailsRoute(),
   };
 
   Widget _route(){
@@ -33,9 +36,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
         primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
         hintColor: Colors.white70,
+        focusColor: Colors.white,
         backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
       ),
       home: _route(),
