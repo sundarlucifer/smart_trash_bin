@@ -10,6 +10,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="smart_trash_bin"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB4LrBvTlkQ40Lb7Rcv1jWWed4UREsIlZI"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -28,6 +30,13 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <!-- For firebase push notification -->
+            <intent-filter>
+                <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
         </activity>
     </application>
 </manifest>

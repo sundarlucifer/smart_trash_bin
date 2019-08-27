@@ -4,6 +4,7 @@ import 'bin_list.dart';
 import 'login.dart';
 import 'bin_details.dart';
 import 'maps_page.dart';
+import 'profile_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     BinListRoute.tag: (context) => BinListRoute(),
     MapsRoute.tag: (context) => MapsRoute(),
     BinDetailsRoute.tag: (context) => BinDetailsRoute(),
+    ProfileRoute.tag: (context) => ProfileRoute(),
   };
 
   Widget _route(){
@@ -36,11 +38,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.grey,
         primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
         hintColor: Colors.white70,
         focusColor: Colors.white,
-        backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+        backgroundColor: Colors.white,
       ),
       home: _route(),
       routes: routes,

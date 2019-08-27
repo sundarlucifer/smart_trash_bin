@@ -16,7 +16,7 @@ class _BinListRouteState extends State<BinListRoute> {
   @override
   Widget build(BuildContext context) {
     final _appBar = AppBar(
-      elevation: 0.1,
+      elevation: 5,
       title: Text(
         'Bin List',
         style: TextStyle(color: Colors.white),
@@ -48,11 +48,11 @@ class BinList extends StatelessWidget {
           default:
             return new ListView(
               children:
-                  snapshot.data.documents.map((DocumentSnapshot document) {
-                return new CustomCard(
-                  document: document,
-                );
-              }).toList(),
+                snapshot.data.documents.map((DocumentSnapshot document) {
+                  return CustomCard(
+                    document: document,
+                  );
+                }).toList(),
             );
         }
       },
@@ -84,7 +84,7 @@ class CustomCard extends StatelessWidget {
       },
       child: Card(
         elevation: 8.0,
-        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
         child: Container(
           decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
           child: makeListTile(bin),
@@ -95,8 +95,9 @@ class CustomCard extends StatelessWidget {
 
   ListTile makeListTile(Bin bin) => ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        leading: Icon(Icons.restore_from_trash, color: Colors.white, size: 35.0,),
         title: Text(
-          bin.location.toString(),
+          'Bin ID : ${bin.binId}',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
@@ -108,20 +109,6 @@ class CustomCard extends StatelessWidget {
                   value: bin.fillLevel,
                   valueColor: AlwaysStoppedAnimation(Colors.green)),
             )),
-            FlatButton(
-              child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text(
-                      'CO gas level : ${bin.coLevel}',
-                      style: TextStyle(color: Colors.white))),
-            ),
-            FlatButton(
-              child: Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text(
-                      'Fire ON? : ${bin.fireStatus.toString()}',
-                      style: TextStyle(color: Colors.white))),
-            )
           ],
         ),
         trailing:

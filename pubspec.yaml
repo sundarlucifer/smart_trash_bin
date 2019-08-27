@@ -18,7 +18,8 @@ dependencies:
   cloud_firestore:
   google_sign_in:
   rxdart:
-#  google_maps_flutter:
+  google_maps_flutter: 0.5.19
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:

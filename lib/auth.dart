@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter/material.dart';
 
 enum AuthStatus {signedIn, notSignedIn}
 
@@ -95,8 +96,13 @@ class AuthService {
       'lastSeen': DateTime.now()
     },merge: true);
   }
+  
+  Future<FirebaseUser> getUser() async{
+    FirebaseUser user = await _auth.currentUser();
+  }
 
   Stream<QuerySnapshot> getBins(){
+    print('getBins() called');
     return _db.collection('bins').snapshots();
   }
 

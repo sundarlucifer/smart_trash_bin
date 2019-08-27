@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'login.dart';
 import 'bin_list.dart';
 import 'maps_page.dart';
+import 'profile_page.dart';
 import 'auth.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -17,7 +19,7 @@ class _MyDraweState extends State<MyDrawer> {
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text('Sundar Saravanan'),
+            accountName: Text('Sundar'),
             accountEmail: Text('sundarlucifer@gmail.com'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
@@ -30,33 +32,24 @@ class _MyDraweState extends State<MyDrawer> {
           ListTile(
             title: Text('Bins'),
             leading: Icon(Icons.keyboard_backspace),
-            onTap: () {
-//              Navigator.of(context).pop();
-//              Navigator.of(context).pushNamed(BinListRoute.tag);
-            },
+            onTap: () => Navigator.pushReplacementNamed(context, BinListRoute.tag),
           ),
           ListTile(
             title: Text('Map'),
             leading: Icon(Icons.keyboard_backspace),
-            onTap: () {
-//              Navigator.of(context).pop();
-//              Navigator.of(context).pushNamed(MapsRoute.tag);
-            },
+            onTap: () => Navigator.pushReplacementNamed(context, MapsRoute.tag),
           ),
           ListTile(
             title: Text('Profile'),
             leading: Icon(Icons.keyboard_backspace),
-            onTap: () {
-
-            },
+            onTap: () => Navigator.pushReplacementNamed(context, ProfileRoute.tag),
           ),
           ListTile(
             title: Text('Sign Out'),
             leading: Icon(Icons.keyboard_backspace),
             onTap: () {
               authService.signOut();
-              while(Navigator.canPop(context))
-                Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, LoginRoute.tag);
             }
           ),
         ],
