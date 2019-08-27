@@ -33,17 +33,6 @@ class _LoginRouteState extends State<LoginRoute> {
     return false;
   }
 
-  _checkSignIn() {
-    StreamBuilder(
-      stream: authService.user,
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          Navigator.pushReplacementNamed(context, BinListRoute.tag);
-        return null;
-      },
-    );
-  }
-
   // Perform login or signup
   void _validateAndSubmit() async {
     //init
@@ -59,19 +48,28 @@ class _LoginRouteState extends State<LoginRoute> {
             print('Error : ${error.toString()}');
             _errorMessage = error.toString().split('(').removeLast().split(',').first.replaceAll('_', ' ');
           });
+        }).then((user){
+          if(user!=null) Navigator.pushReplacementNamed(context, BinListRoute.tag);
         });
       } else {
-        authService.emailSignUp(_email, _pass);
-        authService.sendEmailVerification();
-        _showVerifyEmailSentDialog();
+        authService.emailSignUp(_email, _pass).then((user){
+
+          if(user!=null) {
+            authService.sendEmailVerification();
+            Navigator.pushReplacementNamed(context, BinListRoute.tag);
+            _showVerifyEmailSentDialog();
+          }
+        }).catchError((error, stackTrace){
+          setState(() {
+            print('Error : ${error.toString()}');
+            _errorMessage = error.toString().split('(').removeLast().split(',').first.replaceAll('_', ' ');
+          });
+        });
       }
 
       setState(() {
         _isLoading = false;
       });
-
-
-      _checkSignIn();
     }
   }
 
@@ -81,9 +79,11 @@ class _LoginRouteState extends State<LoginRoute> {
       _isLoading = true;
     });
     try {
-      authService.googleSignIn();
-      setState(() {
-        _isLoading = false;
+      authService.googleSignIn().then((user){
+        if(user!=null) Navigator.pushReplacementNamed(context, BinListRoute.tag);
+        setState(() {
+          _isLoading = false;
+        });
       });
     } catch (e) {
       print('Error: $e');
@@ -95,7 +95,6 @@ class _LoginRouteState extends State<LoginRoute> {
           _errorMessage = e.message;
       });
     }
-    _checkSignIn();
   }
 
   @override

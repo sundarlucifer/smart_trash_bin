@@ -61,7 +61,7 @@ class AuthService {
     return user;
   }
 
-  emailSignUp(String _email, String _pass) async{
+  Future<FirebaseUser> emailSignUp(String _email, String _pass) async{
     loading.add(true);
     print('Signing up');
 
