@@ -12,21 +12,34 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDraweState extends State<MyDrawer> {
+  String _userName ;
+  String _userMail;
+  String _userPhoto = '';
+
+  @override
+  void initState() {
+    authService.getUser().then((user){
+      setState(() {
+        _userName = user.displayName;
+        _userMail = user.email;
+        _userPhoto = user.photoUrl;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return Drawer(
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text('Sundar'),
-            accountEmail: Text('sundarlucifer@gmail.com'),
+            accountName: Text(_userName ?? 'loading..'),
+            accountEmail: Text(_userMail ?? 'loading..'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
-              child: Text(
-                'S',
-                style: TextStyle(fontSize: 40.0),
-              ),
+              child:  Image.network(_userPhoto),
             ),
           ),
           ListTile(

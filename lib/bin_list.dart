@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
 import 'navigation_menu.dart';
 import 'auth.dart';
 import 'bin_details.dart';
@@ -36,6 +37,7 @@ class _BinListRouteState extends State<BinListRoute> {
 }
 
 class BinList extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -44,9 +46,9 @@ class BinList extends StatelessWidget {
         if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return new Text('Loading...');
+            return Center(child: CircularProgressIndicator());
           default:
-            return new ListView(
+            return ListView(
               children:
                 snapshot.data.documents.map((DocumentSnapshot document) {
                   return CustomCard(
@@ -57,6 +59,7 @@ class BinList extends StatelessWidget {
         }
       },
     );
+
   }
 }
 
@@ -93,25 +96,32 @@ class CustomCard extends StatelessWidget {
     );
   }
 
-  ListTile makeListTile(Bin bin) => ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        leading: Icon(Icons.restore_from_trash, color: Colors.white, size: 35.0,),
-        title: Text(
-          'Bin ID : ${bin.binId}',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Column(
-          children: <Widget>[
-            FlatButton(
-                child: Container(
+  ListTile makeListTile(Bin bin){
+    var _color = bin.fillLevel >= 0.4 ? Colors.orange : Colors.green;
+    if(bin.fillLevel >= 0.8) _color = Colors.red;
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Icon(Icons.restore_from_trash, color: Colors.white, size: 35.0,),
+      title: Text(
+        'Bin ID : ${bin.binId}',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          FlatButton(
+            child: Container(
               child: LinearProgressIndicator(
                   backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
                   value: bin.fillLevel,
-                  valueColor: AlwaysStoppedAnimation(Colors.green)),
-            )),
-          ],
-        ),
-        trailing:
-            Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
-      );
+                  valueColor: AlwaysStoppedAnimation(_color)),
+            ),
+          ),
+        ],
+      ),
+      trailing:
+      Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+    );
+  }
+
+
 }

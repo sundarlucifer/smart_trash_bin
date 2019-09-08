@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'auth.dart';
 import 'bin_list.dart';
 import 'login.dart';
@@ -8,7 +9,23 @@ import 'profile_page.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  final _fcm = FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+    _fcm.getToken().then((token) {
+      print('Token : $token');
+    });
+  }
+
   final routes = <String,WidgetBuilder>{
     LoginRoute.tag: (context) => LoginRoute(),
     BinListRoute.tag: (context) => BinListRoute(),

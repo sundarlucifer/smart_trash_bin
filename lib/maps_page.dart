@@ -26,8 +26,17 @@ class _MapsRouteState extends State<MapsRoute> {
       stream: authService.getBins(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         print('stream builder');
+        if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+    switch (snapshot.connectionState) {
+    case ConnectionState.waiting:
+    return new Text('Loading...');
+    default:
+    snapshot.data.documents.map((DocumentSnapshot document) {
+    bins.add(new Bin(document));
+    });
+        };
         if (snapshot.hasData) {
-          print('bins found');
+          print('bin found');
           snapshot.data.documents
               .map((DocumentSnapshot document) => bins.add(new Bin(document)));
         } else
@@ -94,7 +103,7 @@ class BinMap extends StatelessWidget {
     );
   }
 
-  double _zoom() => bins.length>1 ? 0 : 8;
+  double _zoom() => bins.length>1 ? 2 : 8;
 
   _target() => bins.length>1 ? LatLng(28.7041, 77.1025) : LatLng(bins.first.location.latitude, bins.first.location.longitude);
 }

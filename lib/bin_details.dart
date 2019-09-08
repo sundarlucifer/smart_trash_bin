@@ -11,16 +11,20 @@ class BinDetailsRoute extends StatefulWidget {
 }
 
 class _BinDetailsRouteState extends State<BinDetailsRoute> {
+  //Bin bin;
+
   @override
   Widget build(BuildContext context) {
-    final Bin bin = ModalRoute.of(context).settings.arguments;
-    List<Bin> bins = [bin];
+    Bin bin = ModalRoute.of(context).settings.arguments;
 
     final _appBar = AppBar(
       elevation: 0,
       leading: FlatButton(
           onPressed: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back, color: Colors.white,)),
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          )),
       title: Text(
         bin.binId,
         style: TextStyle(color: Colors.white),
@@ -34,9 +38,146 @@ class _BinDetailsRouteState extends State<BinDetailsRoute> {
       backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
       body: Column(
         children: <Widget>[
-          BinMap(bins: bins, height: 200.0, width: MediaQuery.of(context).size.width,),
-
+          _showMap(bin),
+          _showFillLevel(bin.fillLevel),
+          _showGasLevel(bin.coLevel),
+          _showFire(bin.isFire),
+          _showTilt(bin.isTilt),
         ],
+      ),
+    );
+  }
+
+  _showMap(Bin bin) {
+    List<Bin> bins = [bin];
+    return BinMap(
+      bins: bins,
+      height: 200.0,
+      width: MediaQuery.of(context).size.width,
+    );
+  }
+
+  _showFillLevel(_fillLevel) {
+    var _color = _fillLevel >= 0.4 ? Colors.orange : Colors.green;
+    if(_fillLevel >= 0.8) _color = Colors.red;
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+        width: 70,
+        child: Text(
+          'Fill level',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      ),
+      title: Column(
+        children: <Widget>[
+          FlatButton(
+            child: Container(
+              child: LinearProgressIndicator(
+                  backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
+                  value: _fillLevel,
+                  valueColor: AlwaysStoppedAnimation(_color)),
+            ),
+          ),
+        ],
+      ),
+      trailing: Text(
+        '${_fillLevel * 100} %',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _showGasLevel(_coLevel) {
+    var _color = _coLevel >= 0.4 ? Colors.orange : Colors.green;
+    if(_coLevel >= 0.8) _color = Colors.red;
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+        width: 70,
+        child: Text(
+          'Gas Level',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      ),
+      title: Column(
+        children: <Widget>[
+          FlatButton(
+            child: Container(
+              child: LinearProgressIndicator(
+                  backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
+                  value: _coLevel,
+                  valueColor: AlwaysStoppedAnimation(_color)),
+            ),
+          ),
+        ],
+      ),
+      trailing: Text(
+        '${_coLevel * 100} %',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _showFire(bool _isFire) {
+    final _color = _isFire ? Colors.red : Colors.green;
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+          width: 70,
+          child: Text(
+            'Fire',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          )),
+      title: Column(
+        children: <Widget>[
+          FlatButton(
+            child: Container(
+              child: LinearProgressIndicator(
+                  backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
+                  value: 1,
+                  valueColor: AlwaysStoppedAnimation(_color)),
+            ),
+          ),
+        ],
+      ),
+      trailing: Text(
+        '${_isFire}',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  _showTilt(bool _isTilt) {
+    final _color = _isTilt ? Colors.red : Colors.green;
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+        width: 70,
+        child: Text(
+          'Tilt',
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      ),
+      title: Column(
+        children: <Widget>[
+          FlatButton(
+            child: Container(
+              child: LinearProgressIndicator(
+                  backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
+                  value: 1,
+                  valueColor: AlwaysStoppedAnimation(_color)),
+            ),
+          ),
+        ],
+      ),
+      trailing: Text(
+        '${_isTilt}',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
     );
   }

@@ -99,10 +99,16 @@ class AuthService {
   
   Future<FirebaseUser> getUser() async{
     FirebaseUser user = await _auth.currentUser();
+    return user;
   }
 
-  Stream<QuerySnapshot> getBins(){
+  Stream<QuerySnapshot>getBins(){
     print('getBins() called');
+    return _db.collection('bins').snapshots();
+  }
+
+  Stream<QuerySnapshot>getBinsForMap(){
+    print('getBinsForMap() called');
     return _db.collection('bins').snapshots();
   }
 
