@@ -22,28 +22,27 @@ class _MapsRouteState extends State<MapsRoute> {
       centerTitle: true,
     );
 
-    StreamBuilder(
-      stream: authService.getBins(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        print('stream builder');
-        if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
-    switch (snapshot.connectionState) {
-    case ConnectionState.waiting:
-    return new Text('Loading...');
-    default:
-    snapshot.data.documents.map((DocumentSnapshot document) {
-    bins.add(new Bin(document));
+
+    authService.getBinsForMap().then((QuerySnapshot binsList){
+      print(binsList.documents.length);
+
+      binsList.documents.forEach((document){
+        Bin myBin = new Bin(document);
+        bool found = false;
+        for(Bin bin in bins){
+          if(bin.binId == myBin.binId)
+            found = true;
+        }
+        if(!found){
+          setState(() {
+            bins.add(myBin);
+          });
+          print('${document.documentID} added to map');
+        }
+      });
     });
-        };
-        if (snapshot.hasData) {
-          print('bin found');
-          snapshot.data.documents
-              .map((DocumentSnapshot document) => bins.add(new Bin(document)));
-        } else
-          print('no bins');
-        return null;
-      },
-    );
+
+    print('Creating scaffold');
 
     return Scaffold(
       //Custom drawer from navigation_menu.dart
@@ -52,19 +51,18 @@ class _MapsRouteState extends State<MapsRoute> {
       body: Center(
         child: BinMap(
             bins: bins,
-            height: 300,
-            width: 300),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+        ),
       ),
     );
   }
 }
 
-class BinMap extends StatelessWidget {
+class BinMap extends StatefulWidget {
   final List<Bin> bins;
   double height;
   double width;
-  List<Marker> binMarkers = [];
-  GoogleMapController mapController;
 
   BinMap({
     @required this.bins,
@@ -72,26 +70,34 @@ class BinMap extends StatelessWidget {
     @required this.width,
   }) : assert(bins != null);
 
+  @override
+  _BinMapState createState() => _BinMapState();
+}
+
+class _BinMapState extends State<BinMap> {
+  List<Marker> binMarkers = [];
+
+  GoogleMapController mapController;
+
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   @override
   Widget build(BuildContext context) {
-    for (Bin bin in bins) {
-      print(bin.binId);
+    for (Bin bin in widget.bins) {
       binMarkers.add(Marker(
           markerId: MarkerId(bin.binId),
           draggable: false,
           position: LatLng(bin.location.latitude, bin.location.longitude)));
     }
 
-    if(bins.length == 0)
+    if(widget.bins.length == 0)
       return Text('No bins found at the moment');
 
     return Container(
-      height: height,
-      width: width,
+      height: widget.height,
+      width: widget.width,
       child: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
@@ -103,7 +109,7 @@ class BinMap extends StatelessWidget {
     );
   }
 
-  double _zoom() => bins.length>1 ? 2 : 8;
+  double _zoom() => widget.bins.length>1 ? 2 : 8;
 
-  _target() => bins.length>1 ? LatLng(28.7041, 77.1025) : LatLng(bins.first.location.latitude, bins.first.location.longitude);
+  _target() => widget.bins.length>1 ? LatLng(28.7041, 77.1025) : LatLng(widget.bins.first.location.latitude, widget.bins.first.location.longitude);
 }

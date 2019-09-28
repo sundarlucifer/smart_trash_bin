@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,6 +13,7 @@ class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm =  FirebaseMessaging();
 
   Observable<FirebaseUser> user;
   Observable<Map<String,dynamic>> profile;
@@ -95,6 +99,8 @@ class AuthService {
       'uid': user.uid,
       'lastSeen': DateTime.now()
     },merge: true);
+
+    _saveDeviceToken();
   }
   
   Future<FirebaseUser> getUser() async{
@@ -102,14 +108,39 @@ class AuthService {
     return user;
   }
 
-  Stream<QuerySnapshot>getBins(){
-    print('getBins() called');
+  Stream<QuerySnapshot> getBins(){
+    // returns bins collection stream
     return _db.collection('bins').snapshots();
   }
 
-  Stream<QuerySnapshot>getBinsForMap(){
-    print('getBinsForMap() called');
-    return _db.collection('bins').snapshots();
+  Future<QuerySnapshot> getBinsForMap() async{
+    // returns bins collection future
+    final bins = await _db.collection('bins').snapshots();
+    return bins.first;
+  }
+
+  _saveDeviceToken() async {
+    // Get the current user
+    FirebaseUser user = await _auth.currentUser();
+    String uid = user.uid;
+
+    // Get the token for this device
+    String fcmToken = await _fcm.getToken();
+
+    // Save it to Firestore
+    if (fcmToken != null) {
+      var tokens = _db
+          .collection('users')
+          .document(uid)
+          .collection('tokens')
+          .document(fcmToken);
+
+      await tokens.setData({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(), // optional
+        'platform': Platform.operatingSystem // optional
+      });
+    }
   }
 
   signOut(){

@@ -173,7 +173,11 @@ class _LoginRouteState extends State<LoginRoute> {
                 _showSecondaryButton(),
                 _showErrorMessage(),
                 _showGoogleSignIn(),
-                _showMobileSignIn(),
+                Builder(
+                  builder: (BuildContext context){
+                    return _showMobileSignIn(context);
+                  },
+                ),
               ],
             ),
           ),
@@ -202,7 +206,7 @@ class _LoginRouteState extends State<LoginRoute> {
       tag: 'hero',
       child: Center(
         child: Text(
-          'A Quick Start',
+          'Login',
           style: TextStyle(
             color: Colors.white,
             fontSize: 30.0,
@@ -331,7 +335,7 @@ class _LoginRouteState extends State<LoginRoute> {
         ));
   }
 
-  Widget _showMobileSignIn() {
+  Widget _showMobileSignIn(BuildContext context) {
     return new Padding(
         padding: EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 0.0),
         child: SizedBox(
@@ -354,7 +358,14 @@ class _LoginRouteState extends State<LoginRoute> {
                 Text('Sign In With Mobile'),
               ],
             ),
-            onPressed: _googleSignIn,
+            onPressed: (){
+              final scaffold = Scaffold.of(context);
+              scaffold.showSnackBar(
+                SnackBar(
+                  content: const Text('This option will be available soon!'),
+                ),
+              );
+            },
           ),
         ));
   }

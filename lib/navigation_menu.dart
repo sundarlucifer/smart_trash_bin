@@ -14,7 +14,7 @@ class MyDrawer extends StatefulWidget {
 class _MyDraweState extends State<MyDrawer> {
   String _userName ;
   String _userMail;
-  String _userPhoto = '';
+  Widget _userPhoto = Image.asset('assets/icons/user.png');
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _MyDraweState extends State<MyDrawer> {
       setState(() {
         _userName = user.displayName;
         _userMail = user.email;
-        _userPhoto = user.photoUrl;
+        _userPhoto = Image.network(user.photoUrl);
       });
     });
     super.initState();
@@ -39,7 +39,7 @@ class _MyDraweState extends State<MyDrawer> {
             accountEmail: Text(_userMail ?? 'loading..'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
-              child:  Image.network(_userPhoto),
+              child:  _userPhoto,
             ),
           ),
           ListTile(
