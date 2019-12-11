@@ -17,7 +17,9 @@ class _ProfileRouteState extends State<ProfileRoute> {
 
     return Scaffold(
       drawer: MyDrawer(),
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Profile'),
+      ),
       body: Profile(),
     );
   }
@@ -28,7 +30,9 @@ class Profile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    return Center();
+    return Center(
+
+    );
 
   }
 }
