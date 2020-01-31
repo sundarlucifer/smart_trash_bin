@@ -36,6 +36,7 @@ class _LoginRouteState extends State<LoginRoute> {
   // Perform login or signup
   void _validateAndSubmit() async {
     //init
+    FocusScope.of(context).requestFocus(FocusNode());
     if (_validateAndSave()) {
       setState(() {
         _errorMessage = "";

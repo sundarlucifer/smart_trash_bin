@@ -35,8 +35,8 @@ class _MyDraweState extends State<MyDrawer> {
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text(_userName ?? 'loading..'),
-            accountEmail: Text(_userMail ?? 'loading..'),
+            accountName: Text(_userName ?? 'anonymous'),
+            accountEmail: Text(_userMail ?? ''),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child:  _userPhoto,

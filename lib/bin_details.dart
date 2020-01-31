@@ -40,7 +40,7 @@ class _BinDetailsRouteState extends State<BinDetailsRoute> {
         children: <Widget>[
           _showMap(bin),
           _showFillLevel(bin.fillLevel),
-          _showGasLevel(bin.coLevel),
+          _showGasLevel(bin.isGas),
           _showFire(bin.isFire),
           _showTilt(bin.isTilt),
         ],
@@ -89,15 +89,14 @@ class _BinDetailsRouteState extends State<BinDetailsRoute> {
     );
   }
 
-  _showGasLevel(_coLevel) {
-    var _color = _coLevel >= 0.4 ? Colors.orange : Colors.green;
-    if(_coLevel >= 0.8) _color = Colors.red;
+  _showGasLevel(_isGas) {
+    final _color = _isGas ? Colors.red : Colors.green;
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       leading: Container(
         width: 70,
         child: Text(
-          'Gas Level',
+          'Toxic Gas',
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
         ),
@@ -108,14 +107,14 @@ class _BinDetailsRouteState extends State<BinDetailsRoute> {
             child: Container(
               child: LinearProgressIndicator(
                   backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
-                  value: _coLevel,
+                  value: 1,
                   valueColor: AlwaysStoppedAnimation(_color)),
             ),
           ),
         ],
       ),
       trailing: Text(
-        '${_coLevel * 100} %',
+        '${_isGas}',
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
     );
@@ -151,8 +150,8 @@ class _BinDetailsRouteState extends State<BinDetailsRoute> {
     );
   }
 
-  _showTilt(bool _isTilt) {
-    final _color = _isTilt ? Colors.red : Colors.green;
+  _showTilt(String _isTilt) {
+    final _color = _isTilt[0]=='W' ? Colors.red : Colors.green;
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       leading: Container(
@@ -167,17 +166,10 @@ class _BinDetailsRouteState extends State<BinDetailsRoute> {
         children: <Widget>[
           FlatButton(
             child: Container(
-              child: LinearProgressIndicator(
-                  backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
-                  value: 1,
-                  valueColor: AlwaysStoppedAnimation(_color)),
-            ),
+              child: Text(_isTilt, style: TextStyle(color: _color, fontSize: 15),)
           ),
+          )
         ],
-      ),
-      trailing: Text(
-        '${_isTilt}',
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
     );
   }

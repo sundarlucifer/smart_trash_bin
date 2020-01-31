@@ -92,9 +92,8 @@ class AuthService {
     DocumentReference ref = _db.collection('users').document(user.uid);
 
     ref.setData({
-      'displayName': user.displayName,
+      'displayName': user.displayName ?? user.email,
       'email': user.email,
-      'phoneNumber': user.phoneNumber,
       'photoURL': user.photoUrl,
       'uid': user.uid,
       'lastSeen': DateTime.now()
@@ -143,9 +142,27 @@ class AuthService {
     }
   }
 
+  updatePhoneNumber(String phone) async {
+    FirebaseUser user = await _auth.currentUser();
+    _db.collection('users').document(user.uid).setData({
+      'phoneNumber' : phone
+    } ,merge:true);
+    return user;
+  }
+
   signOut(){
     _auth.signOut();
     print('Signed out');
+  }
+
+  getPhone() async{
+    String _phn = "";
+    FirebaseUser user = await _auth.currentUser();
+    var snap = await _db.collection('users').document(user.uid).snapshots();
+    await snap.first.then((val){
+      _phn = val['phoneNumber'];
+    });
+    return _phn;
   }
 }
 
