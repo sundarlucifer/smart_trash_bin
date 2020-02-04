@@ -73,3 +73,5 @@
 android/key.properties
 key.jks
 android/app/release/app-release.aab
+android/app/release/app-release.apk
+android/app/release/output.json
