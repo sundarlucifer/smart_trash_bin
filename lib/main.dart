@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Smart Trash Bin',
       theme: ThemeData(
         primarySwatch: Colors.grey,
         primaryColor: Color.fromRGBO(58, 66, 86, 1.0),
