@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:flutter/rendering.dart';
 import 'navigation_menu.dart';
 import 'auth.dart';
 import 'bin_details.dart';
@@ -118,8 +117,7 @@ class CustomCard extends StatelessWidget {
           ),
         ],
       ),
-      trailing:
-      Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+      trailing: Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
     );
   }
 

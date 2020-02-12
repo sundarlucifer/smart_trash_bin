@@ -22,7 +22,7 @@ class _MyDraweState extends State<MyDrawer> {
       setState(() {
         _userName = user.displayName;
         _userMail = user.email;
-        if(user.photoUrl)
+        if(user.photoUrl != '')
           _userPhoto = Image.network(user.photoUrl);
       });
     });
