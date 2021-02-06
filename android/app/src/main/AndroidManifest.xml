@@ -13,7 +13,6 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="Smart Trash Bin"
         android:icon="@mipmap/ic_launcher">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB4LrBvTlkQ40Lb7Rcv1jWWed4UREsIlZI"/>
 
         <activity
             android:name=".MainActivity"
