@@ -1,0 +1,34 @@
+name: smart_trash_bin
+description: A new Flutter application.
+
+version: 1.0.2+2
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+
+  firebase_core:
+  firebase_analytics:
+  firebase_auth:
+  cloud_firestore:
+  google_sign_in:
+  rxdart: 0.22.1+1
+  google_maps_flutter: 0.5.19
+  firebase_messaging:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
