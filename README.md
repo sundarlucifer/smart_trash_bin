@@ -17,14 +17,14 @@ Google play store link: https://play.google.com/store/apps/details?id=com.theoly
 # Team Details
 Students:
 - Sundar. S
-- Sahaya Joe Ralphin. X
+- [Sahaya Joe Ralphin. X](https://github.com/Joe-Ralph)
 
 Mentors:
 - Ms. J Naskat, AP(Sr.), CSE
 - Ms. B Shunmugapriya, AP, CSE
 
 College details: National Engineering College, Kovilpatti, TN, India  
-College site: [click here](https://nec.edu.in)
+College site: https://nec.edu.in
 
 `This application is just a remote user interface for the product and is not the entire solution`
 
