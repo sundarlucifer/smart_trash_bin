@@ -12,8 +12,6 @@ Smart Bin is an IOT product that enables remote monitoring and smart notificatio
 
 Google play store link: https://play.google.com/store/apps/details?id=com.theolympian.smart_trash_bin
 
-*This application is just a remote user interface for the product and is not the entire solution*
-
 # Team Details
 Students:
 - Sundar. S
